@@ -162,7 +162,15 @@ String cliente_datos[]=new String[5];
     }//GEN-LAST:event_BTañadirActionPerformed
 
     private void BTsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTsalirActionPerformed
-        System.exit(0); 
+            int confirmacion = JOptionPane.showConfirmDialog(null, "SALIR? ", "SALIR", JOptionPane.YES_NO_OPTION);
+            if (confirmacion==JOptionPane.YES_OPTION){
+            System.exit(0);
+            }else 
+                {
+                    TAconsola.setText("");
+                }
+         
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_BTsalirActionPerformed
 
@@ -198,7 +206,9 @@ String cliente_datos[]=new String[5];
        fr.close();
             // TODO add your handling code here:
         } catch (IOException ex) {
-            TAconsola.setText("El archivo no ha sido creado.");
+            TAconsola.setText("El archivo no existe.");
+            
+            JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BTlistarActionPerformed
 
@@ -211,16 +221,16 @@ String cliente_datos[]=new String[5];
                             if(f1.delete()){
                                 TAconsola.setText("");
                                 TAconsola.setText("Archivo borrado correctamente.");
-                            }else TAconsola.setText("El archivo no se ha borrado o no existe.");
+                            }else  JOptionPane.showMessageDialog(null, "EL ARCHIVO NO EXISTE", "ERROR", JOptionPane.ERROR_MESSAGE);
                             //dispose();
-                        }
+                        }else  JOptionPane.showMessageDialog(null, "EL ARCHIVO NO SE HA BORRADO", "CANCELADO", JOptionPane.WARNING_MESSAGE);
                     
         // TODO add your handling code here:
     }//GEN-LAST:event_BTeliminarActionPerformed
 
     private void BTbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTbuscarActionPerformed
         try {
-            String baliza=JOptionPane.showInputDialog(null,"NIF a buscar?","Titulo",JOptionPane.INFORMATION_MESSAGE);
+            String baliza=JOptionPane.showInputDialog(null,"NIF a buscar?","BUSCAR",JOptionPane.INFORMATION_MESSAGE);
             TAconsola.setText("");
        File f;
        FileReader fr;
@@ -248,13 +258,14 @@ String cliente_datos[]=new String[5];
        fr.close();
        }catch(IOException e)
         {
+             JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
             e.getStackTrace();
          }
     }//GEN-LAST:event_BTbuscarActionPerformed
 
     private void BTborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTborrarActionPerformed
         try {
-            String bal1=JOptionPane.showInputDialog(null,"NIF a buscar?","Titulo",JOptionPane.INFORMATION_MESSAGE);
+            String bal1=JOptionPane.showInputDialog(null,"NIF a buscar y borrar?","BORRAR",JOptionPane.INFORMATION_MESSAGE);
             TAconsola.setText("");
             ArrayList<String> list1= new ArrayList<>();
             File f;
@@ -297,6 +308,7 @@ String cliente_datos[]=new String[5];
             }
        }catch(IOException e)
         {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
             e.getStackTrace();
          }
         // TODO add your handling code here:
@@ -341,6 +353,7 @@ String cliente_datos[]=new String[5];
             }
         }catch(IOException e)
         {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
             e.getStackTrace();
          }
  }
