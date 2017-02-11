@@ -20,6 +20,7 @@ public class JFNuevoCliente extends javax.swing.JFrame {
      */
     public JFNuevoCliente() {
         initComponents();
+        
     }
 
     /**

@@ -7,10 +7,11 @@ package empresa;
 
 import java.io.*;
 import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Paco G.
+ * @author Paco G. <DAW 2016/2017 Ponferrada-Distancia>
  */
 public class modulos {
    
@@ -21,6 +22,7 @@ public class modulos {
    private String deuda;
    String datos[]= {"NIF: ","NOMBRE: ","TELEFONO: ","DIRECCION: ","DEUDA: "};
    String cliente_datos[]=new String[5];
+   boolean existe= false;
     public modulos() {
     }
 
@@ -33,6 +35,10 @@ public class modulos {
     }
     
    public void escribir() throws IOException{
+    modulos probar_nif= new modulos();
+    probar_nif.buscar(nif);
+    if (!probar_nif.existe){
+    
     try {
     File f;
     FileWriter fich;
@@ -42,41 +48,18 @@ public class modulos {
     fich = new FileWriter(f,true);
     bw= new BufferedWriter(fich);
     pw = new PrintWriter(bw);
+    
     pw.write(nif+"-"+nombre+"-"+telefono+"-"+direccion+"-"+deuda+"\n");
     pw.close();
     bw.close();
+    
     }catch(IOException e)
         {
             e.getStackTrace();
          }
+    }else JOptionPane.showMessageDialog(null, "El NIF de ese cliente ya existe.");
     }
    
-   public void listar() throws IOException{
-       try {File f;
-       FileReader fr;
-       BufferedReader br;
-       
-       f= new File("clientes.dat");
-       fr=new FileReader(f);
-       br=new BufferedReader(fr);
-       String linea;
-       int reg=1;
-       while((linea=br.readLine())!=null){
-        System.out.println(" ---------------- Registro "+reg+": ------------------");
-        StringTokenizer st = new StringTokenizer(linea,"-");
-        int s=st.countTokens();
-        for (int r=0;r<s;r++){
-            System.out.println(datos[r]+st.nextToken());   
-        }
-        reg++;
-        }
-       br.close();
-       fr.close();
-       }catch(IOException e)
-        {
-            e.getStackTrace();
-         }
-   }
    public void buscar(String baliza) throws IOException{
       try {
        File f;
@@ -94,9 +77,7 @@ public class modulos {
             cliente_datos[r]=st.nextToken();
          }
         if (cliente_datos[0].equals(baliza)) {
-        for (int r1=0;r1<s;r1++){
-        System.out.println(datos[r1]+cliente_datos[r1]);
-        }
+            existe=true;
         }
        }
        br.close();
